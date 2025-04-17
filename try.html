@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchMade | Wedding Swipe</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+  <!-- Confetti JS -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://your-background-image-link.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    /* Main Header Styling */
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      font-family: 'Quicksand', sans-serif;
+      animation: fadeIn 2s ease-out;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Card Styling */
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 380px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease-out;
+      position: relative;
+      z-index: 10;
+      touch-action: none;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 15px;
+      max-height: 350px;
+      object-fit: cover;
+      animation: slideIn 1.5s ease-out;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 600;
+      margin-top: 15px;
+      color: #333;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    /* Swipe Messages */
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+      font-style: italic;
+      color: #444;
+      min-height: 40px;
+      font-family: 'Quicksand', sans-serif;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Button styles for hover and swipe */
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .left {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .right {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .left:hover {
+      background-color: #e53935;
+    }
+
+    .right:hover {
+      background-color: #388e3c;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>MatchMade | Wedding Swipe</h1>
+
+  <div class="card" id="card">
+    <img src="https://drive.google.com/uc?export=view&id=1ItWA-BWZ3Jlhf8B0tE3nTXr1jX7rh27S" alt="Bharadwaj Image">
+    <div class="name">Bharadwaj, 26</div>
+    <div class="message" id="message"></div>
+
+    <div class="buttons">
+      <button class="left" onclick="swipe('left')">Swipe Left 💔</button>
+      <button class="right" onclick="swipe('right')">Swipe Right 💍</button>
+    </div>
+  </div>
+
+  <script>
+    const weddingMusic = new Audio("https://soundcloud.com/zob86/london-thumakda-queen?in=rasheed108/sets/indian-wedding-songs&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing");
+    const sadMusic = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+
+    function swipe(direction) {
+      const messages = {
+        left: [
+          "Wow. Rejected a guy in a kurta? Your loss, aunty-approved husband material 😤",
+          "You just swiped left on a guy who can cook and dance. Good luck finding that in the next 10 years!",
+        ],
+        right: [
+          "Let’s tell your dad we met at a wedding, not on this page 👀",
+        ]
+      };
+
+      const msgEl = document.getElementById("message");
+      const randomMsg = messages[direction][Math.floor(Math.random() * messages[direction].length)];
+      msgEl.textContent = randomMsg;
+      msgEl.style.opacity = 1;
+
+      if (direction === 'right') {
+        // Trigger confetti
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { x: 0.5, y: 0.5 }
+        });
+        weddingMusic.play();
+        sadMusic.pause();
+      } else {
+        sadMusic.play();
+        weddingMusic.pause();
+      }
+
+      // Move card off-screen after swipe
+      const card = document.getElementById("card");
+      card.style.transition = "transform 0.5s ease-out";
+      card.style.transform = direction === 'right' ? "translateX(400px)" : "translateX(-400px)";
+
+      setTimeout(() => {
+        card.style.transform = "translateX(0)";
+        msgEl.style.opacity = 0;
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
