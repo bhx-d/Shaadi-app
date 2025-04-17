@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MatchMade | Wedding Swipe</title>
-  
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
 
@@ -12,10 +12,9 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    /* Global Styles */
     body {
       font-family: 'Poppins', sans-serif;
-      background: url('https://your-background-image-link.jpg') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       padding: 0;
@@ -28,7 +27,6 @@
       flex-direction: column;
     }
 
-    /* Main Header Styling */
     h1 {
       font-size: 48px;
       font-weight: 700;
@@ -42,18 +40,15 @@
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     }
 
-    /* Card Styling */
     .card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 20px;
       text-align: center;
       width: 380px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      transition: transform 0.5s ease-out;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       position: relative;
       z-index: 10;
-      touch-action: none;
     }
 
     .card img {
@@ -72,7 +67,6 @@
       font-family: 'Quicksand', sans-serif;
     }
 
-    /* Swipe Messages */
     .message {
       margin-top: 20px;
       font-size: 18px;
@@ -84,7 +78,6 @@
       transition: opacity 0.3s ease;
     }
 
-    /* Animations */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -107,7 +100,6 @@
       }
     }
 
-    /* Button styles for hover and swipe */
     .buttons {
       display: flex;
       justify-content: space-around;
@@ -140,7 +132,6 @@
     .right:hover {
       background-color: #388e3c;
     }
-
   </style>
 </head>
 <body>
@@ -148,7 +139,7 @@
   <h1>MatchMade | Wedding Swipe</h1>
 
   <div class="card" id="card">
-    <img src="https://github.com/bhx-d/Shaadi-app/blob/main/Picture.jpg" alt="Bharadwaj Image">
+    <img src="https://raw.githubusercontent.com/bhx-d/Shaadi-app/main/Picture.jpg" alt="Bharadwaj Image">
     <div class="name">Bharadwaj, 26</div>
     <div class="message" id="message"></div>
 
@@ -159,17 +150,20 @@
   </div>
 
   <script>
-    const weddingMusic = new Audio("https://github.com/bhx-d/Shaadi-app/blob/main/Right.mp3");
-    const sadMusic = new Audio("https://github.com/bhx-d/Shaadi-app/blob/main/Left.mp3");
+    const weddingMusic = new Audio("https://raw.githubusercontent.com/bhx-d/Shaadi-app/main/Right.mp3");
+    const sadMusic = new Audio("https://raw.githubusercontent.com/bhx-d/Shaadi-app/main/Left.mp3");
 
     function swipe(direction) {
       const messages = {
         left: [
           "Wow. Rejected a guy in a kurta? Your loss, aunty-approved husband material 😤",
           "You just swiped left on a guy who can cook and dance. Good luck finding that in the next 10 years!",
+          "He’s wearing a kurta and has a dog. That’s basically 200 marriage points."
         ],
         right: [
           "Let’s tell your dad we met at a wedding, not on this page 👀",
+          "Shaadi.com who? You just made the best decision of your life!",
+          "Great choice! Pandit ji just said 'Shubh Muhurat mil gaya!' 🔔"
         ]
       };
 
@@ -179,11 +173,10 @@
       msgEl.style.opacity = 1;
 
       if (direction === 'right') {
-        // Trigger confetti
         confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { x: 0.5, y: 0.5 }
+          particleCount: 150,
+          spread: 80,
+          origin: { x: 0.5, y: 0.6 }
         });
         weddingMusic.play();
         sadMusic.pause();
@@ -192,7 +185,6 @@
         weddingMusic.pause();
       }
 
-      // Move card off-screen after swipe
       const card = document.getElementById("card");
       card.style.transition = "transform 0.5s ease-out";
       card.style.transform = direction === 'right' ? "translateX(400px)" : "translateX(-400px)";
