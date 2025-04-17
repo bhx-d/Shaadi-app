@@ -74,7 +74,7 @@
       color: #444;
       min-height: 40px;
       font-family: 'Quicksand', sans-serif;
-      opacity: 0;
+      opacity: 1;
       transition: opacity 0.3s ease;
     }
 
@@ -141,8 +141,11 @@
   <div class="card" id="card">
     <img src="https://raw.githubusercontent.com/bhx-d/Shaadi-app/main/Picture.jpg" alt="Bharadwaj Image">
     <div class="name">Bharadwaj, 26</div>
+
+    <!-- Message section -->
     <div class="message" id="message"></div>
 
+    <!-- Buttons -->
     <div class="buttons">
       <button class="left" onclick="swipe('left')">Swipe Left 💔</button>
       <button class="right" onclick="swipe('right')">Swipe Right 💍</button>
@@ -184,15 +187,6 @@
         sadMusic.play();
         weddingMusic.pause();
       }
-
-      const card = document.getElementById("card");
-      card.style.transition = "transform 0.5s ease-out";
-      card.style.transform = direction === 'right' ? "translateX(400px)" : "translateX(-400px)";
-
-      setTimeout(() => {
-        card.style.transform = "translateX(0)";
-        msgEl.style.opacity = 0;
-      }, 500);
     }
   </script>
 
